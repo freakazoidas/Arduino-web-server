@@ -7,6 +7,7 @@ const char* ssid = "Cgates_BF90";
 const char* password = "74097494";
 
 const int ledPin = LED_BUILTIN;
+const int speakerPin = D5;
 
 WiFiUDP ntpUDP;
 IPAddress timeServerIP;
@@ -20,6 +21,7 @@ ESP8266WebServer server(80);
 void handleRoot();
 void handleToggle();
 void handleTime();
+void handleSpeaker();
 time_t getNtpTime();
 void sendNTPpacket(IPAddress& address);
 
@@ -27,7 +29,9 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(ledPin, OUTPUT);
+  pinMode(speakerPin, OUTPUT);
   digitalWrite(ledPin, LOW);
+  digitalWrite(speakerPin, LOW);
 
   WiFi.begin(ssid, password);
 
@@ -45,6 +49,7 @@ void setup() {
   server.on("/", handleRoot);
   server.on("/toggle", handleToggle);
   server.on("/time", handleTime);
+  server.on("/speaker", handleSpeaker);
 
   server.begin();
   Serial.println("HTTP server started");
@@ -64,7 +69,13 @@ void handleRoot() {
   String html = R"(<html>
 <head>
   <title>Simple Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f0f0f0;
+    }
+  </style>
   <script>
     function fetchTime() {
       var xhr = new XMLHttpRequest();
@@ -89,7 +100,7 @@ void handleRoot() {
     </div>
     <div class="row">
       <div class="col">
-        <button class="btn btn-primary" onclick="location.href='/toggle'">Toggle LED</button>
+        <button class="btn btn-primary" onclick="location.href='/speaker'">Beep Speaker</button>
       </div>
     </div>
   </div>
@@ -108,6 +119,17 @@ void handleToggle() {
 void handleTime() {
   String currentTime = timeStatus() == timeNotSet ? "Not Set" : String(hour()) + ":" + String(minute()) + ":" + String(second());
   server.send(200, "text/plain", currentTime);
+}
+
+void handleSpeaker() {
+  for (int i = 0; i < 2; i++) {
+    digitalWrite(speakerPin, HIGH);
+    delay(100);
+    digitalWrite(speakerPin, LOW);
+    delay(100);
+  }
+  server.sendHeader("Location", "/");
+  server.send(303);
 }
 
 time_t getNtpTime() {
