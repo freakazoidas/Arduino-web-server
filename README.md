@@ -39,7 +39,6 @@ Credits
 This code was adapted from the ESP8266WebServer example included with the ESP8266WiFi library.
 
 
-![image](https://user-images.githubusercontent.com/26854208/234386492-ef6fadd5-ee1f-46c7-b1b3-28d2cee84111.png)
 
 ![image](https://user-images.githubusercontent.com/26854208/234418710-37272f1f-0c95-42d7-a6b3-8b4a1f82685c.png)
 
