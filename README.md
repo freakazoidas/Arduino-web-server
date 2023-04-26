@@ -14,9 +14,9 @@ Hardware Requirements
 Wiring Instructions
 -------------------
 
-1. Connect the IO pin of the speaker to the D5 pin on the ESP8266 module.
-2. Connect the GND pin of the speaker to the GND pin on the ESP8266 module.
-3. Connect the VCC pin of the speaker to the 3.3v pin on the board.
+1.  Connect the IO pin of the speaker to the D5 pin on the ESP8266 module.
+2.  Connect the GND pin of the speaker to the GND pin on the ESP8266 module.
+3.  Connect the VCC pin of the speaker to the 3.3v pin on the board.
 
 Installation and Usage
 ----------------------
@@ -31,12 +31,12 @@ Installation and Usage
 Note
 ----
 
-If you plan to use this code for your own projects and want to access the Arduino web server from outside your local network, you will need to create a virtual server on your router and use the IP address of the ESP8266 module to connect to it using port 80.
+If you plan to use this code for your own projects and want to access the Arduino web server from outside your local network, you can use a free dynamic DNS service like duckdns.org. Users with routers that have a dynamic IP address can add their IP address and IPv6 address, add a domain and have an easier access to their hosted website.
 
 Credits
 -------
 
 This code was adapted from the ESP8266WebServer example included with the ESP8266WiFi library.
 
-
+Phone browser view:
 ![image](https://user-images.githubusercontent.com/26854208/234419120-4f98e8f9-8dae-42a4-a08f-d7dc5a1c9257.png)
